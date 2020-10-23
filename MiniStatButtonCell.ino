@@ -84,7 +84,8 @@ String dataString = "";
   #define SerialDebugger Serial
 #endif
 
-int pump;
+const int pump1 = 4;
+const int pump2 = 6;
 
 
 LMP91000 pStat = LMP91000();
@@ -172,16 +173,21 @@ void setup()
 
 void loop()
 {
-  digitalWrite(pump, HIGH);
-  delay(2500);
-  digitalWrite(pump, LOW);
+  digitalWrite(pump1, HIGH); //Switch the pump on for 
+  digitalWrite(pump2, HIGH);
+  delay(4000)
+  digitalWrite(pump1, LOW);
+  digitalWrite(pump2, LOW);
   SerialDebugger.println(F("Ready!"));
-  
-  //will hold the code here until a character is sent over the SerialDebugger port
-  //this ensures the experiment will only run when initiated
-  while(!SerialDebugger.available());
-  SerialDebugger.read();
+  delay(300000); //Wait 5 minutes before performing SWV
 
+  
+  /*
+  //will hold the code here until a character is sent over the SerialDebugger port
+  //this ensures the experiment will only run when initiated - not using this feature as we intend to operate this remotely
+  while(!SerialDebugger.available()); 
+  SerialDebugger.read();
+  */
 
   //working variables
   float slope = 0;
